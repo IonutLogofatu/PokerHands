@@ -12,13 +12,20 @@ public class Combinations {
                 return comparePair(players);
             case 3:
                 return compareTwoPairs(players);
-            case 4 -> Messages.messageForThreeOfAKind(player);
-            case 5 -> Messages.messageForStraight(player);
-            case 6 -> Messages.messageForFlush(player);
-            case 7 -> Messages.messageForFullHouse(player);
-            case 8 -> Messages.messageForFourOfAKind(player);
-            case 9 -> Messages.messageForStraightFlush(player);
+            case 4:
+                return compareThreeOfAKind(players);
+            case 5:
+            case 9:
+                return compareStraight(players);
+            case 6:
+                Messages.messageForTie();
+                return 0;
+            case 7:
+                return compareFullHouse(players);
+            case 8:
+                return compareFourOfAKind(players);
         }
+        return 0;
     }
 
     private int getThePair(List<Card> cards){
@@ -63,14 +70,25 @@ public class Combinations {
         return getTwoPair(cards).get(0) != 0;
     }
 
-   public boolean isThreeOfAKind(List<Card> cards){
+
+    public int getThreeOfAKind(List<Card> cards){
         int card1 = cards.get(0).getRank().getRankIndex();
         int card2 = cards.get(1).getRank().getRankIndex();
         int card3 = cards.get(2).getRank().getRankIndex();
         int card4 = cards.get(3).getRank().getRankIndex();
         int card5 = cards.get(4).getRank().getRankIndex();
 
-        return (card1 == card3 || card2 == card4 || card3 == card5);
+        if(card1 == card3){
+            return card1;
+        }else if(card2 == card4){
+            return card2;
+        }else if(card3 == card5){
+            return card3;
+        }
+        return 0;
+    }
+   public boolean isThreeOfAKind(List<Card> cards){
+       return getThreeOfAKind(cards) != 0;
     }
 
     public boolean isStraight(List<Card> cards){
@@ -92,24 +110,41 @@ public class Combinations {
         return true;
     }
 
-    public boolean isFullHouse(List<Card> cards){
+    private List<Integer> getFullHouse(List<Card> cards){
         int card1 = cards.get(0).getRank().getRankIndex();
         int card2 = cards.get(1).getRank().getRankIndex();
         int card3 = cards.get(2).getRank().getRankIndex();
         int card4 = cards.get(3).getRank().getRankIndex();
         int card5 = cards.get(4).getRank().getRankIndex();
 
-        return ((card1 == card2 && card2 != card3 && card3 == card5) ||
-                (card1 == card3 && card3 != card4 && card4 == card5));
+        if(card1 == card2 && card2 != card3 && card3 == card5){
+            return Arrays.asList(card3,card1);
+        }else if(card1 == card3 && card3 != card4 && card4 == card5){
+            return Arrays.asList(card1, card4);
+        }
+        return Arrays.asList(0,0);
     }
 
-    public boolean isFourOfAKind(List<Card> cards){
+    public boolean isFullHouse(List<Card> cards){
+        return getFullHouse(cards).get(0) != 0;
+    }
+
+    public int getFourOfAKind(List<Card> cards){
         int card1 = cards.get(0).getRank().getRankIndex();
         int card2 = cards.get(1).getRank().getRankIndex();
         int card4 = cards.get(3).getRank().getRankIndex();
         int card5 = cards.get(4).getRank().getRankIndex();
-        return (card1 == card4 ||
-                card2 == card5);
+
+        if(card1 == card4){
+            return card1;
+        }else if(card2 == card5){
+            return card2;
+        }
+        return 0;
+    }
+
+    public boolean isFourOfAKind(List<Card> cards){
+        return getFourOfAKind(cards) != 0;
     }
 
     public boolean isStraightFlush(List<Card> cards){
@@ -147,9 +182,9 @@ public class Combinations {
         }else if(secondPlayerPair > firstPlayerPair){
             Messages.messageForOnePair(2);
             return 2;
+        }else {
+            return compareHighCard(players);
         }
-        Messages.messageForTie();
-        return 0;
     }
 
     public int compareTwoPairs(Players players){
@@ -169,8 +204,80 @@ public class Combinations {
         }else if(secondPlayerPair.get(0) > firstPlayerPair.get(0)){
             Messages.messageForTwoPairs(2);
             return 2;
+        }else {
+            return compareHighCard(players);
+        }
+    }
+
+    private int compareThreeOfAKind(Players players){
+        List<Card> firstPlayer = players.getFirstPlayer();
+        List<Card> secondPlayer = players.getSecondPlayer();
+        int firstPlayerThreeOfAKind = getThreeOfAKind(firstPlayer);
+        int secondPlayerThreeOfAKind = getThreeOfAKind(secondPlayer);
+        if(firstPlayerThreeOfAKind > secondPlayerThreeOfAKind){
+            Messages.messageForOnePair(1);
+            return 1;
+        }else if(secondPlayerThreeOfAKind > firstPlayerThreeOfAKind){
+            Messages.messageForOnePair(2);
+            return 2;
+        }else {
+            return compareHighCard(players);
+        }
+    }
+
+    private int compareStraight(Players players){
+        List<Card> firstPlayer = players.getFirstPlayer();
+        List<Card> secondPlayer = players.getSecondPlayer();
+        int firstCardFirstPlayer = firstPlayer.get(0).getRank().getRankIndex();
+        int firstCardSecondPlayer = secondPlayer.get(0).getRank().getRankIndex();
+
+        if( firstCardFirstPlayer > firstCardSecondPlayer){
+            Messages.messageForStraight(1);
+            return 1;
+        }else if(firstCardSecondPlayer > firstCardFirstPlayer){
+            Messages.messageForStraight(2);
+            return 2;
         }
         Messages.messageForTie();
         return 0;
     }
+
+    private int compareFullHouse(Players players){
+        List<Card> firstPlayer = players.getFirstPlayer();
+        List<Card> secondPlayer = players.getSecondPlayer();
+        List<Integer> firstPlayerFullHouse =  getFullHouse(firstPlayer);
+        List<Integer> secondPlayerFullHouse = getFullHouse(secondPlayer);
+        if(firstPlayerFullHouse.get(0) > secondPlayerFullHouse.get(0)){
+            Messages.messageForFullHouse(1);
+            return 1;
+        }else if(secondPlayerFullHouse.get(0) > firstPlayerFullHouse.get(0)){
+            Messages.messageForFullHouse(2);
+            return 2;
+        }else if(firstPlayerFullHouse.get(1) > secondPlayerFullHouse.get(1)){
+            Messages.messageForFullHouse(1);
+            return 1;
+        }else if(secondPlayerFullHouse.get(1) > firstPlayerFullHouse.get(1)){
+            Messages.messageForFullHouse(2);
+            return 2;
+        }
+        Messages.messageForTie();
+        return 0;
+    }
+
+    private int compareFourOfAKind(Players players){
+        List<Card> firstPlayer = players.getFirstPlayer();
+        List<Card> secondPlayer = players.getSecondPlayer();
+        int firstPlayerThreeOfAKind = getFourOfAKind(firstPlayer);
+        int secondPlayerThreeOfAKind = getFourOfAKind(secondPlayer);
+        if(firstPlayerThreeOfAKind > secondPlayerThreeOfAKind){
+            Messages.messageForFourOfAKind(1);
+            return 1;
+        }else if(secondPlayerThreeOfAKind > firstPlayerThreeOfAKind){
+            Messages.messageForFourOfAKind(2);
+            return 2;
+        }else {
+            return compareHighCard(players);
+        }
+    }
+
 }
