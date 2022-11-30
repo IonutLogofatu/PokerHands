@@ -16,7 +16,7 @@ public class Main {
     public static void readCardsFromFileAndStartTheGame(){
         try{
             int[] counterOfWins = new int[3];
-            File fileFromRead = new File("/Users/ionutlogofatu/Documents/GitHub/PokerHands/src/src/poker.txt");
+            File fileFromRead = new File("poker.txt");
             Scanner scanner = new Scanner(fileFromRead);
             while (scanner.hasNextLine()) {
                 Players players = new Players();

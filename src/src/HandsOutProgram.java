@@ -8,7 +8,7 @@ public class HandsOutProgram {
     public static void writeInFile(int numberOfTimes){
         Random random = new Random();
         try {
-            FileWriter myWriter = new FileWriter("/Users/ionutlogofatu/Documents/GitHub/PokerHands/src/src/poker.txt");
+            FileWriter myWriter = new FileWriter("poker.txt");
             for(int i =0; i < numberOfTimes; i++){
                 List<String> cards = new ArrayList<>();
                 int numberOfCards = 10;
