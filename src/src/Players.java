@@ -1,14 +1,15 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Players {
-    private ArrayList<Card> firstPlayer;
-    private ArrayList<Card> secondPlayer;
+    private List<Card> firstPlayer;
+    private List<Card> secondPlayer;
 
-    public ArrayList<Card> getFirstPlayer() {
+    public List<Card> getFirstPlayer() {
         return firstPlayer;
     }
 
-    public ArrayList<Card> getSecondPlayer() {
+    public List<Card> getSecondPlayer() {
         return secondPlayer;
     }
 
@@ -29,19 +30,13 @@ public class Players {
         }
     }
 
-    private void putCardsOnArray(String card, ArrayList<Card> player){
+    private void putCardsOnArray(String card, List<Card> player){
         player.add(getCardFromString(card));
     }
 
     private Card getCardFromString(String card){
-        String rank,suit;
-        if(card.length() == 3){
-            rank = "10";
-            suit = String.valueOf(card.charAt(2));
-        }else{
-            rank = String.valueOf(card.charAt(0));
-            suit = String.valueOf(card.charAt(1));
-        }
+        String  rank = String.valueOf(card.charAt(0));
+        String  suit = String.valueOf(card.charAt(1));
         return new Card(getRankFromCard(rank),getSuitFromCard(suit));
     }
 
@@ -91,7 +86,7 @@ public class Players {
             case "9":
                 rankToReturn =  Rank.NINE;
                 break;
-            case "10":
+            case "T":
                 rankToReturn =  Rank.TEN;
                 break;
             case "J":

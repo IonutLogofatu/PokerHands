@@ -12,9 +12,11 @@ public class Main {
             File fileFromRead = new File("/Users/ionutlogofatu/Documents/GitHub/PokerHands/src/src/poker.txt");
             Scanner scanner = new Scanner(fileFromRead);
             while (scanner.hasNextLine()) {
-                String[] cards = scanner.nextLine().split(" ");
                 Players players = new Players();
+                Game game  = new Game();
+                String[] cards = scanner.nextLine().split(" ");
                 players.addCardsToPlayers(cards);
+                game.startGame(players);
             }
             scanner.close();
         }catch (FileNotFoundException exception){
