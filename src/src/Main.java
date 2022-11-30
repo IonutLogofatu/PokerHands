@@ -9,7 +9,7 @@ public class Main {
 
 
     public static void handsOut(){
-            HandsOutProgram.writeInFile(10);
+            HandsOutProgram.writeInFile(1000);
             readCardsFromFileAndStartTheGame();
     }
 
