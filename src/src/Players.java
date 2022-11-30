@@ -34,8 +34,14 @@ public class Players {
     }
 
     private Card getCardFromString(String card){
-        String rank = card.substring(0,0);
-        String suit = card.substring(1,1);
+        String rank,suit;
+        if(card.length() == 3){
+            rank = "10";
+            suit = String.valueOf(card.charAt(2));
+        }else{
+            rank = String.valueOf(card.charAt(0));
+            suit = String.valueOf(card.charAt(1));
+        }
         return new Card(getRankFromCard(rank),getSuitFromCard(suit));
     }
 
