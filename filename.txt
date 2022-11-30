@@ -1,0 +1,1 @@
+[5S, 4H, 3S, 7C, 2S, 7D, 2C, 7S][2H, 3H, KH, 5D, 7H, KC, 1S, 7C][5C, 1S, 7H, 6H, TH, 3H, 4S, 8C, 3C][JH, JC, 1H, 2S, 9C, 6S, 1S, QS][6S, 9C, TD, 3H, 9S, QD, QC, 4D, 1D, 8S][7S, 3D, QC, 5C, 5H, 8H, 8S, KS, 3S][AD, 1H, AS, 6D, 2D, 4C, 1D, 8S, 3C][4D, AS, 8S, 6H, 5C, 7S, 3H, 9H, 8H, TC][KC, 4D, 4C, TS, 3S, 5S, 9C, 9S, 8H, AC][1S, 8H, AS, 6S, 2C, 5H, AC, 3H, 7D]

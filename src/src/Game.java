@@ -3,25 +3,27 @@ import java.util.List;
 
 public class Game {
     Players players = new Players();
-    public void startGame(Players players){
+    public int startGame(Players players){
         this.players = players;
         Collections.sort(players.getFirstPlayer(),new CustomComparator());
         Collections.sort(players.getSecondPlayer(),new CustomComparator());
         Combinations combinations = new Combinations();
-        playPoker(players,combinations);
+        return playPoker(players,combinations);
     }
 
-    private void playPoker(Players players, Combinations combinations){
+    private int playPoker(Players players, Combinations combinations){
         List<Card> firstPlayer = players.getFirstPlayer();
         List<Card> secondPlayer = players.getSecondPlayer();
         int firstPlayerHandRank = getHandRank(combinations,firstPlayer).getHandRankIndex();
         int secondPlayerHandRank = getHandRank(combinations,secondPlayer).getHandRankIndex();
         if(firstPlayerHandRank > secondPlayerHandRank){
             DetermineTheMessage.determineWhatMessageToDisplay(1,firstPlayerHandRank);
+            return 1;
         }else if(secondPlayerHandRank > firstPlayerHandRank){
             DetermineTheMessage.determineWhatMessageToDisplay(2,secondPlayerHandRank);
+            return 2;
         }else{
-            combinations.determineTheWinner(players,firstPlayerHandRank);
+            return combinations.determineTheWinner(players,firstPlayerHandRank);
         }
     }
 
