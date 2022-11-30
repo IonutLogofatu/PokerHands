@@ -93,11 +93,13 @@ public class Combinations {
 
     public boolean isStraight(List<Card> cards){
         int card1 = cards.get(0).getRank().getRankIndex();
-        int card3 = cards.get(3).getRank().getRankIndex();
-        int card4 = cards.get(4).getRank().getRankIndex();
-        if(card4 - card1 == 4){
+        int card2 = cards.get(0).getRank().getRankIndex();
+        int card3 = cards.get(0).getRank().getRankIndex();
+        int card4 = cards.get(3).getRank().getRankIndex();
+        int card5 = cards.get(4).getRank().getRankIndex();
+        if(card5 - card4 == 1 && card4-card3 == 1 && card3-card2 == 1 && card2-card1 == 1){
             return true;
-        }else if((card3 - card1 == 3) && (card1 == 2 && card4 == 14)){
+        }else if((card4-card3 == 1 && card3-card2 == 1 && card2-card1 == 1) && (card1 == 2 && card5 == 14)){
             return true;
         }
         return false;
